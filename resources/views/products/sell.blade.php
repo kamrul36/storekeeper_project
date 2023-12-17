@@ -6,7 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-    <!-- resources/views/products/sell.blade.php -->
 
 @extends('layouts.app')
 

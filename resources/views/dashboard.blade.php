@@ -6,7 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-    <!-- resources/views/dashboard/index.blade.php -->
 
 @extends('layouts.app')
 

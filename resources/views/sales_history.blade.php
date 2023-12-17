@@ -6,7 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-    <!-- resources/views/transaction_history.blade.php -->
 
 @extends('layouts.app')
 
