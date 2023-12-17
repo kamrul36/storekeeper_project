@@ -18,15 +18,15 @@
             <tr>
                 <th class="py-2 px-4 border-b">Product</th>
                 <th class="py-2 px-4 border-b">Quantity</th>
-                <th class="py-2 px-4 border-b">Sale Date</th>
+                <th class="py-2 px-4 border-b">Created Date</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($transactions as $transaction)
                 <tr>
-                    <td class="py-2 px-4 border-b">{{ $transaction->name }}</td>
-                    <td class="py-2 px-4 border-b">{{ $transaction->quantity }}</td>
-                    <td class="py-2 px-4 border-b">{{ $transaction->created_at }}</td>
+                    <td class="py-2 px-4 border-b text-center">{{ $transaction->name }}</td>
+                    <td class="py-2 px-4 border-b text-center">{{ $transaction->quantity }}</td>
+                    <td class="py-2 px-4 border-b text-center">{{ $transaction->created_at }}</td>
                 </tr>
             @endforeach
         </tbody>

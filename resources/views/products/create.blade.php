@@ -13,7 +13,7 @@
     @section('content')
 
     <div class="container mx-auto mt-8">
-        <h2 class="text-2xl font-semibold mb-4">Add New Product</h2>
+        <h2 class="text-2xl font-semibold mb-4">Add a new product</h2>
         @if(session('success'))
         <div class="bg-green-200 text-green-800 p-4 mb-4">
             {{ session('success') }}
@@ -23,7 +23,7 @@
             @csrf
             <div class="mb-4">
                 <label for="name" class="block text-gray-600">Product Name:</label>
-                <input type="text" name="name" class="form-input mt-1 block w-full" required>
+                <input type="text" name="name" class="form-input mt-1 h-fit block w-full" required>
             </div>
 
             <div class="mb-4">

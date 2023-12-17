@@ -9,21 +9,26 @@
 </head>
 
 <body class="bg-gray-100">
-    <header class="bg-blue-600 text-white py-4">
-        <div class="container mx-auto">
-            <h1 class="text-2xl font-semibold">Store Keeper</h1>
+
+    <header class="bg-blue-800 p-4 text-white flex justify-between">
+        <div>
+            <span class="text-lg font-bold">Storekeeper</span>
         </div>
+
+        <nav>
+            <ul class="flex space-x-4">
+                <!-- Add other navigation links if needed -->   
+                <li><a href="{{ route('dashboard') }}" class="hover:underline">Dashboard</a></li>
+                <li><a href="{{ route('products') }}" class="hover:underline">Products</a></li>
+                <li><a href="{{ route('transactionHistory') }}" class="hover:underline">Transaction History</a></li>
+            </ul>
+        </nav>
     </header>
+
     <main>
         @yield('content')
     </main>
 
-    <!-- <nav>
-    <ul>
-    
-        <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
-    </ul>
-</nav> -->
 </body>
 
-</html> 
+</html>

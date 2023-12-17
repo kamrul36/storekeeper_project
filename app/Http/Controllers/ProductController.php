@@ -35,6 +35,23 @@ class ProductController extends Controller
     }
 
 
+    public function showUpdatePriceForm(Product $product)
+    {
+        return view('products.update_price', compact('product'));
+    }
+
+    public function updatePrice(Request $request, Product $product)
+    {
+        $request->validate([
+            'price' => 'required|numeric|min:0',
+        ]);
+
+        $product->update(['price' => $request->input('price')]);
+
+        return redirect()->route('products.index')->with('success', 'Product price updated successfully.');
+    }
+
+
     public function sellForm(Product $product)
     {
         return view('products.sell', compact('product'));

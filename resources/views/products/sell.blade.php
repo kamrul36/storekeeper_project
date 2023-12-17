@@ -11,7 +11,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1 class="text-3xl font-bold mb-4">Sell Product: {{ $product->name }}</h1>
+    <h1 class="text-3xl font-bold mb-4">Sell Product: {{ $product->name }}, Quantity: {{$product->quantity}}</h1>
 
     <form action="{{ route('products.sell', ['product' => $product]) }}" method="post" class="max-w-md">
         @csrf
