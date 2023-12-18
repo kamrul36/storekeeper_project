@@ -1,4 +1,4 @@
-<?php
+    <?php
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
@@ -12,12 +12,13 @@ Route::get('/', [ProductController::class, 'create'])->name('products.create');
 
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 
-// Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
+
 
 Route::post('/products', [ProductController::class, 'store'])->name('products');
 
 Route::get('/products/sell/{product}', [ProductController::class, 'sellForm'])->name('products.sellForm');
 
+// Route::post('/products/sell/{product}', [ProductController::class, 'sell'])->name('products.sell');
 Route::post('/products/sell/{product}', [ProductController::class, 'sell'])->name('products.sell');
 
 Route::get('/products/update/{product}', [ProductController::class, 'showUpdatePriceForm'])->name('products.showUpdateForm');

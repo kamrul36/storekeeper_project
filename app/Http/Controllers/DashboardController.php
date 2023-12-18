@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Sale;
 use Illuminate\Http\Request;
+use DB;
 
 class DashboardController extends Controller
 {
@@ -19,12 +19,16 @@ class DashboardController extends Controller
 
     private function getSalesForDate($date)
     {
-        return Sale::whereDate('created_at', $date->toDateString())->sum('total_amount');
+        return DB::table('sales')
+            ->whereDate('created_at', $date->toDateString())
+            ->sum('total_amount');
     }
 
     private function getSalesForMonth($date)
     {
-        return Sale::whereYear('created_at', $date->year)
+
+            return DB::table('sales')
+            ->whereYear('created_at', $date->year)
             ->whereMonth('created_at', $date->month)
             ->sum('total_amount');
     }

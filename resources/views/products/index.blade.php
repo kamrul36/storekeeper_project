@@ -16,6 +16,7 @@
     <table class="min-w-full bg-white border border-gray-300">
         <thead>
             <tr>
+                <th class="py-2 px-4 border-b">Index</th>
                 <th class="py-2 px-4 border-b">Name</th>
                 <th class="py-2 px-4 border-b">Quantity</th>
                 <th class="py-2 px-4 border-b">Price</th>
@@ -24,20 +25,21 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($products as $product)
+            @foreach ($products as $index => $product)
             <tr>
+                <td class="py-2 px-4 border-b text-center">{{ $index + 1 }}</td>
                 <td class="py-2 px-4 border-b text-center">{{ $product->name }}</td>
                 <td class="py-2 px-4 border-b text-center">{{ $product->quantity }}</td>
                 <td class="py-2 px-4 border-b text-center">{{ $product->price }}</td>
                 <td class="py-2 px-4 border-b text-center">
-                <a href="{{ route('products.showUpdateForm', ['product' => $product]) }}" class="text-blue-500 ml-2">Update Price</a>
+                <a href="{{ route('products.showUpdateForm', ['product' => $index + 1]) }}" class="text-blue-500 ml-2">Update Price</a>
                 </td>
                 <td class="py-2 px-4 border-b text-center">
-                    <a href="{{ route('products.sellForm', ['product' => $product]) }}" class="text-blue-500">Sell</a>
+                    <a href="{{ route('products.sellForm', ['product' => $index + 1]) }}" class="text-blue-500">Sell</a>
                 </td>
             </tr>
             @endforeach
-        </tbody>
+        </tbody>    
     </table>
 
     <a href="{{ route('products.create') }}" class="mt-4 inline-block bg-blue-500 text-white py-2 px-4 rounded">Add

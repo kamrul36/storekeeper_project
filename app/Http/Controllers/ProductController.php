@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Sale;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use DB;
 
 class ProductController extends Controller
 {
 
     public function index()
     {
-        $products = Product::all();
+
+        $products = DB::table('products')->get();
         return view('products.index', compact('products'));
     }
 
-    public function create()
+        public function create()
     {
         return view('products.create');
     }
@@ -29,7 +30,14 @@ class ProductController extends Controller
             'price' => 'required|numeric',
         ]);
 
-        Product::create($data);
+        DB::table('products')->insert([
+            'name' => $data['name'],
+            'quantity' => $data['quantity'],
+            'price' => $data['price'],
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
 
         return redirect()->route('products.create')->with('success', 'Product added successfully');
     }
@@ -46,9 +54,10 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:0',
         ]);
 
-        $product->update(['price' => $request->input('price')]);
+        DB::table('products')->where('id', $product->id)->update(['price' => $request->input('price')]);
 
         return redirect()->route('products.index')->with('success', 'Product price updated successfully.');
+
     }
 
 
@@ -57,29 +66,40 @@ class ProductController extends Controller
         return view('products.sell', compact('product'));
     }
 
-    public function sell(Request $request, Product $product)
+    public function sell($productId, Request $request)
     {
-        $data = $request->validate([
-            'quantity' => 'required|integer|min:1|max:' . $product->quantity,
-        ]);
 
-        $totalAmount = $data['quantity'] * $product->price;
+        $product = DB::table('products')->where('id', $productId)->first();
 
-        $sale = Sale::create([
-            'product_id' => $product->id,
-            'quantity' => $data['quantity'],
-            'total_amount' => $totalAmount,
-        ]);
+        $requestedQuantity = $request->input('quantity');
 
-        $product->decrement('quantity', $data['quantity']);
+        if ($product->quantity >= $requestedQuantity) {
+            $totalAmount = $requestedQuantity * $product->price; // Adjust based on your product price
+            $newQuantity = $product->quantity - $requestedQuantity;
+
+
+            DB::table('products')->where('id', $productId)->update(['quantity' => $newQuantity]);
+
+            DB::table('sales')->insert([
+                'product_id' => $productId,
+                'quantity' => $requestedQuantity,
+                'total_amount' => $totalAmount,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
 
         return redirect()->route('products.index');
     }
 
     public function transactionHistory()
     {
-        $transactions = Product::orderBy('created_at', 'desc')->get();
-
+        $transactions = DB::table('sales')
+        ->join('products', 'sales.product_id', '=', 'products.id')
+        ->select('sales.*', 'products.name as product_name')
+        ->orderBy('sales.created_at', 'desc')
+        ->get();
+        
         return view('sales_history', compact('transactions'));
     }
 
